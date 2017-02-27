@@ -35,9 +35,7 @@ function getProduct(indexTab) {
     });
 }
 
-function searchReference(value){
-    alert(value); 
-}
+
    
 
 function initialiseProductFiche(idProduct) {
@@ -105,5 +103,26 @@ function isEmpty(str) {
     return (!str || 0 === str.length);
 }
 
+function searchReference(value){
+    $.ajax({
+        type:"POST",
+        url:'modele/produitModele.php',
+        dataType: "json",
+        data: {function:"getReferencesForAutocomplete", data:value},
+        
+        success: function (response){
+            if (!isEmpty(response.error)){
+                console.error("getReferences() - " + response.error);
+            }
+            if (!isEmpty(response.data)){
+                var datas = response.data;
+                console.log(datas);
+            }
+        },
+        error: function (erreur){
+            console.error("Erreur lors de l'appel à getReferencesForAutocomplete()" + erreur[0]);
+        }
+    });
+}
 //CALL METHOD FOR THE FIRST TIME
 getProduct();

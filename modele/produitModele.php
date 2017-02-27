@@ -16,7 +16,9 @@ if (!empty($function) || !(is_null($function))) {
         getReferences();
     } else if ($function == 'getProduct') {
         getProduct();
-    } else {
+    } else if ($function=='getReferencesForAutocomplete'){
+        getReferencesForAutocomplete(filter_input(INPUT_POST,'data'));
+    }else {
         returnResult(null, "This function is not recognized.");
     }
 }
@@ -53,7 +55,11 @@ function getProductToJSON($reference) {
     returnResult($jsonProduct, null);
 }
 
-
+function getReferencesForAutocomplete($data) {
+    $resultat=getReferencesForAuto($data);
+    $jsonResultat=convertReferencesToJson($resultat);
+    returnResult($jsonResultat, null);
+   }
 /************************************************************
  * CALL FUNCTIONS TO GET RESULT FROM BDD
  ************************************************************/
@@ -81,6 +87,13 @@ function getRechercheReferences() {
     return $idRequete;
 }
 
+function getReferencesForAuto($data) {
+
+    $cnx = getBdd();
+    $varQuery = "SELECT reference FROM produit WHERE reference LIKE '$data%'";
+    $idRequete = executeRequete($cnx, $varQuery);
+    return $idRequete;
+}
 function consulteProduit($parm) {
 
     $cnx = getBdd();
