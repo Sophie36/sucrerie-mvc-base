@@ -16,9 +16,11 @@ if (!empty($function) || !(is_null($function))) {
         getReferences();
     } else if ($function == 'getProduct') {
         getProduct();
-    } else if ($function=='getReferencesForAutocomplete'){
-        getReferencesForAutocomplete(filter_input(INPUT_POST,'data'));
-    }else {
+    } else if ($function == 'getReferencesForAutocomplete'){
+        $dataToSearch  = filter_input(INPUT_POST, 'data');
+        getReferencesForAutocomplete($dataToSearch);
+    }
+    else {
         returnResult(null, "This function is not recognized.");
     }
 }
@@ -48,6 +50,11 @@ function getProduct() {
     }
 }
 
+function getReferencesForAutocomplete($data){
+    $allReferences = convertReferencesToJson(getReferencesForAuto($data));
+    returnResult($allReferences, null);
+}
+
 function getProductToJSON($reference) {
     $product = consulteProduitByReference($reference);
     $jsonProduct = convertProductToJson($product);
@@ -55,11 +62,7 @@ function getProductToJSON($reference) {
     returnResult($jsonProduct, null);
 }
 
-function getReferencesForAutocomplete($data) {
-    $resultat=getReferencesForAuto($data);
-    $jsonResultat=convertReferencesToJson($resultat);
-    returnResult($jsonResultat, null);
-   }
+
 /************************************************************
  * CALL FUNCTIONS TO GET RESULT FROM BDD
  ************************************************************/
@@ -71,6 +74,13 @@ function listeProduits($msg, $parm = null) {
     return $idRequete;
 }
 
+function getReferencesForAuto($data){
+    $cnx = getBdd();
+    $varQuery = "SELECT reference FROM produit WHERE reference LIKE '$data%'";
+    $idRequete = executeRequete($cnx, $varQuery);
+    return $idRequete; 
+}
+
 function getListReferences() {
 
     $cnx = getBdd();
@@ -79,21 +89,6 @@ function getListReferences() {
     return $idRequete;
 }
 
-function getRechercheReferences() {
-
-    $cnx = getBdd();
-    $varQuery = "SELECT reference FROM produit WHERE reference LIKE 'value%'";
-    $idRequete = executeRequete($cnx, $varQuery);
-    return $idRequete;
-}
-
-function getReferencesForAuto($data) {
-
-    $cnx = getBdd();
-    $varQuery = "SELECT reference FROM produit WHERE reference LIKE '$data%'";
-    $idRequete = executeRequete($cnx, $varQuery);
-    return $idRequete;
-}
 function consulteProduit($parm) {
 
     $cnx = getBdd();
