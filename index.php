@@ -42,6 +42,10 @@ require_once('router.php');
 
     <body class="index">
         <div class="col-md-12" style="height:50vh; margin-top: 5%">
+            <div class='col-md-12'>
+                <span id="reference_label_recherche" class="col-md-4" style="height:5vh; margin-top: 2%" style="font-weight:bold; margin-left:2%">recherche d'un produit:</span>
+                <span class="col-md-4"><input type="text" name="recherche" id="reference_recherche" style="color:black;" placeholder="rechercher une reference" size="30" maxlength="10" onkeyup="searchReference(this.value)" /></span>
+            </div>    
             <div class="col-md-12" style="background-color:white; color:#2c3e50; font-weight : bold; height:5vh;"><span style="margin-left:2%; font-size:3vh; vertical-align:middle">FICHE PRODUIT</span></div>
             <br/>
             <br/>

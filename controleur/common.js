@@ -35,6 +35,10 @@ function getProduct(indexTab) {
     });
 }
 
+function searchReference(value){
+    alert(value); 
+}
+   
 
 function initialiseProductFiche(idProduct) {
     $.ajax({

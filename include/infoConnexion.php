@@ -4,9 +4,9 @@
 // pour la connexion à MySQL
 
 
-define('SERVEUR', '127.0.0.1');
+define('SERVEUR', 'localhost');
 define('UTILISATEUR', 'root');
-define('MOTDEPASSE', 'root');
+define('MOTDEPASSE', '');
 define('BASEDEDONNEES', 'sucrerie');
 
 ?>

@@ -17,7 +17,7 @@ function executeRequete($cnx, $sql, $parametres=NULL)
 
 //MES DONNEES EN DUR BEURK !
 function getBdd() {
-    $cnx = connexion("root", "root", "sucrerie","127.0.0.1");
+    $cnx = connexion("root", "", "sucrerie","localhost");
     return $cnx;
 }
 

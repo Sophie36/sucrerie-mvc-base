@@ -73,6 +73,14 @@ function getListReferences() {
     return $idRequete;
 }
 
+function getRechercheReferences() {
+
+    $cnx = getBdd();
+    $varQuery = "SELECT reference FROM produit WHERE reference LIKE 'value%'";
+    $idRequete = executeRequete($cnx, $varQuery);
+    return $idRequete;
+}
+
 function consulteProduit($parm) {
 
     $cnx = getBdd();
